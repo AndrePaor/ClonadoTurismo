@@ -84,7 +84,7 @@ private AlojamientoData alojamientoData;
             }
         });
 
-        jLabel5.setText("Id_alojamiento");
+        jLabel5.setText("Codigo");
 
         jBmodificar.setText("Modificar");
         jBmodificar.addActionListener(new java.awt.event.ActionListener() {
@@ -221,15 +221,26 @@ private AlojamientoData alojamientoData;
     }//GEN-LAST:event_tfcamasActionPerformed
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
-       Alojamiento alojamiento = new Alojamiento();
-alojamiento.setDireccion(tfdireccion.getText());
-alojamiento.setCantidadDeCamas( Integer.parseInt(tfcamas.getText()));
-alojamiento.setFumadores(cbfumadores.isSelected());
-alojamiento.setCostoPorNoche(Double.parseDouble(tfcosto.getText()));
+
+                
+             if ( (tfdireccion.getText().length()>0) && (tfcamas.getText().length()>0) && (tfcosto.getText().length()>0) )  {
+             
+                    Alojamiento alojamiento = new Alojamiento();
+                    alojamiento.setDireccion(tfdireccion.getText());
+                    alojamiento.setCantidadDeCamas( Integer.parseInt(tfcamas.getText()));
+                    alojamiento.setFumadores(cbfumadores.isSelected());
+                    alojamiento.setCostoPorNoche(Double.parseDouble(tfcosto.getText()));
 
 
-alojamientoData.guardarAlojamiento(alojamiento);
-tfId.setText(Integer.toString(alojamiento.getId_alojamiento()));
+                    alojamientoData.guardarAlojamiento(alojamiento);
+                    tfId.setText(Integer.toString(alojamiento.getId_alojamiento()));
+        
+             }
+            else{
+             JOptionPane.showMessageDialog(null,"Los campos Direccion, Cantidad de camas, y costo no puede ser vacio","Advertencia",JOptionPane.WARNING_MESSAGE);                       
+             }
+       
+
 
 
 // TODO add your handling code here:
@@ -237,8 +248,23 @@ tfId.setText(Integer.toString(alojamiento.getId_alojamiento()));
     }//GEN-LAST:event_jBguardarActionPerformed
 
     private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
-int id_alojamiento= Integer.parseInt(tfId.getText());
-        alojamientoData.borrarAlojamiento(id_alojamiento);
+int id_alojamiento= 0;
+             
+        if (isNumeric(tfId.getText())){
+             if ( (tfId.getText().length()>0) )  {
+             
+                alojamientoData.borrarAlojamiento(id_alojamiento);
+        
+             }
+            else{
+             JOptionPane.showMessageDialog(null,"El campo codigo de la persona no puede ser vacio","Advertencia",JOptionPane.WARNING_MESSAGE);                       
+             }
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"El campo codigo debe ser un numero","Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
         
         // TODO add your handling code here:
     }//GEN-LAST:event_jBeliminarActionPerformed
@@ -252,11 +278,11 @@ int id_alojamiento= Integer.parseInt(tfId.getText());
              
                  id_alojamiento= Integer.parseInt(tfId.getText());
                  Alojamiento alojamiento =alojamientoData.buscarAlojamiento(id_alojamiento);
-        tfId.setText(alojamiento.getId_alojamiento()+"");
-        tfdireccion.setText(alojamiento.getDireccion());
-        tfcamas.setText(Integer.toString(alojamiento.getCantidadDeCamas()));
-        cbfumadores.setSelected(alojamiento.isFumadores());
-        tfcosto.setText(Double.toString(alojamiento.getCostoPorNoche()) );
+                 tfId.setText(alojamiento.getId_alojamiento()+"");
+                 tfdireccion.setText(alojamiento.getDireccion());
+                 tfcamas.setText(Integer.toString(alojamiento.getCantidadDeCamas()));
+                 cbfumadores.setSelected(alojamiento.isFumadores());
+                 tfcosto.setText(Double.toString(alojamiento.getCostoPorNoche()) );
         
              }
             else{
@@ -290,20 +316,32 @@ int id_alojamiento= Integer.parseInt(tfId.getText());
 
     private void jBmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmodificarActionPerformed
       
-        if ((tfId.getText())!=null){
-            
-            String direccion=tfdireccion.getText();
-            int cantidadDeCamas = Integer.parseInt(tfcamas.getText());
-            boolean fumadores = cbfumadores.isSelected();
-            double costoPorNoche= Double.parseDouble(tfcosto.getText());
+        
+        int id_alojamiento= 0;
+             
+        if (isNumeric(tfId.getText())){
+             if ( (tfId.getText().length()>0) && (tfdireccion.getText().length()>0) && (tfcamas.getText().length()>0) && (tfcosto.getText().length()>0))  {
+             
+                 String direccion=tfdireccion.getText();
+                 int cantidadDeCamas = Integer.parseInt(tfcamas.getText());
+                 boolean fumadores = cbfumadores.isSelected();
+                 double costoPorNoche= Double.parseDouble(tfcosto.getText());
            
 
-             Alojamiento alojamiento =new Alojamiento(Integer.parseInt(tfId.getText()),direccion, cantidadDeCamas ,fumadores, costoPorNoche);
-             alojamientoData.actualizarAlojamiento(alojamiento);
-
-
-
-        // TODO add your handling code here:
+                 Alojamiento alojamiento =new Alojamiento(Integer.parseInt(tfId.getText()),direccion, cantidadDeCamas ,fumadores, costoPorNoche);
+                 alojamientoData.actualizarAlojamiento(alojamiento);
+        
+             }
+            else{
+            JOptionPane.showMessageDialog(null,"Los campos Direccion, Cantidad de camas, y costo no puede ser vacio","Advertencia",JOptionPane.WARNING_MESSAGE);                       
+             }
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"El campo codigo debe ser un numero","Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+    if ((tfId.getText())!=null){
     }//GEN-LAST:event_jBmodificarActionPerformed
     }
     private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
