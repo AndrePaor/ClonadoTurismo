@@ -251,6 +251,13 @@ int id_alojamiento= Integer.parseInt(tfId.getText());
              if ( (tfId.getText().length()>0) )  {
              
                  id_alojamiento= Integer.parseInt(tfId.getText());
+                 Alojamiento alojamiento =alojamientoData.buscarAlojamiento(id_alojamiento);
+        tfId.setText(alojamiento.getId_alojamiento()+"");
+        tfdireccion.setText(alojamiento.getDireccion());
+        tfcamas.setText(Integer.toString(alojamiento.getCantidadDeCamas()));
+        cbfumadores.setSelected(alojamiento.isFumadores());
+        tfcosto.setText(Double.toString(alojamiento.getCostoPorNoche()) );
+        
              }
             else{
              JOptionPane.showMessageDialog(null,"El campo codigo de la persona no puede ser vacio","Advertencia",JOptionPane.WARNING_MESSAGE);                       
@@ -261,12 +268,7 @@ int id_alojamiento= Integer.parseInt(tfId.getText());
         }
         
         
-        Alojamiento alojamiento =alojamientoData.buscarAlojamiento(id_alojamiento);
-        tfId.setText(alojamiento.getId_alojamiento()+"");
-        tfdireccion.setText(alojamiento.getDireccion());
-        tfcamas.setText(Integer.toString(alojamiento.getCantidadDeCamas()));
-        cbfumadores.setSelected(alojamiento.isFumadores());
-        tfcosto.setText(Double.toString(alojamiento.getCostoPorNoche()) );
+        
     }//GEN-LAST:event_jBbuscarActionPerformed
 
     public static boolean isNumeric(String strNum) {
