@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,11 +33,12 @@ public class PaqueteData {
     public void guardarPaquete(Paquete paquete) {
     
         try {
-            String sql = "INSERT INTO Paquete (id_traslado,id_alojamiento,Descripcion) VALUES ( ?, ?, ?);";
+            String sql = "INSERT INTO Paquete (id_traslado,id_alojamiento,Descripcion,Cupo) VALUES ( ?, ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, paquete.getTraslado().getId_traslado());
             ps.setInt(2, paquete.getAlojamiento().getId_alojamiento());
             ps.setString(3, paquete.getDescripcion());
+            ps.setInt(4, paquete.getCupo());
             
             
             int filas = ps.executeUpdate();
@@ -114,5 +117,57 @@ public void actualizarpaquete(Paquete paquete){
         
         
     }
+       public List<Paquete> obtenerPaquetes(){
+        List<Paquete> paquetes = new ArrayList<Paquete>();
+            
+
+        try {
+            String sql = "SELECT * FROM paquete;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet=ps.executeQuery();
+            Paquete paquete;
+            while(resultSet.next()){
+                paquete= new Paquete();
+                paquete.setId_paquete(resultSet.getInt("id_paquete"));
+                paquete.getTraslado().setId_traslado(resultSet.getInt("id_traslado"));
+                paquete.getAlojamiento().setId_alojamiento(resultSet.getInt("id_alojamiento"));
+                paquete.setDescripcion(resultSet.getString("Descripcion"));
+                paquetes.add(paquete);
+            }      
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los paquetes: " + ex.getMessage());
+        }
+        
+        
+        return paquetes;
+    }
+       public List<Paquete> filtroVehiculos(String tipo){
+        List<Paquete> paquetes = new ArrayList<Paquete>();
+            
+
+        try {
+            String sql = "SELECT * FROM paquete, traslado WHERE paquete.id_traslado = traslado.id_traslado AND traslado.Tipo=?;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,tipo);
+            ResultSet resultSet=ps.executeQuery();
+            Paquete paquete;
+            while(resultSet.next()){
+                paquete= new Paquete();
+                paquete.setId_paquete(resultSet.getInt("id_paquete"));
+                paquete.getTraslado().setId_traslado(resultSet.getInt("id_traslado"));
+                paquete.getAlojamiento().setId_alojamiento(resultSet.getInt("id_alojamiento"));
+                paquete.setDescripcion(resultSet.getString("Descripcion"));
+                paquetes.add(paquete);
+            }      
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los paquetes: " + ex.getMessage());
+        }
+        
+        
+        return paquetes;
+    }
+       
     
 }

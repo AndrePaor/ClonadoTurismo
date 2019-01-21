@@ -73,7 +73,7 @@ public void actualizarAlojamiento(Alojamiento alojamiento){
     
         try {
            
-            String sql = "UPDATE alojamiento SET Direccion=?, Cantidad_de_camas=?,Fumadores=?,Costo_por_noche=? WHERE id_alojamiento= ?;";
+            String sql = "UPDATE alojamiento SET Direccion=?, Cantidad_de_camas=?,Fumadores=?,Costo_por_noche=? WHERE id_alojamiento=?;";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, alojamiento.getDireccion());
             ps.setInt(2, alojamiento.getCantidadDeCamas());

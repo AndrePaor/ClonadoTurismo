@@ -14,7 +14,7 @@ public class Paquete {
     private Traslado traslado;
     private String descripcion;
     private int id_paquete;
-    int cupo;
+    private int cupo;
 
     
     public Paquete() {
@@ -68,15 +68,15 @@ public class Paquete {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-      public int cupo() { 
-        if (alojamiento.getCantidadDeCamas()< traslado.getCantidadDePasajeros()) {
-        return alojamiento.getCantidadDeCamas();}
-        else { return traslado.getCantidadDePasajeros();}
+      
      
-     }
+     
 
     
-    }
+    public int cupo() { 
+        if (alojamiento.getCantidadDeCamas()< traslado.getCantidadDePasajeros()) {
+        return alojamiento.getCantidadDeCamas();}
+        else { return traslado.getCantidadDePasajeros();}}}
       
    
    

@@ -5,6 +5,8 @@
  */
 package agenciadeturismoproyecto;
 
+import Interface.Inicio;
+
 /**
  *
  * @author G5
@@ -16,12 +18,15 @@ public class AgenciaDeTurismoProyecto {
      */
     public static void main(String[] args) {
         
-        Alojamiento alojamiento1 = new Alojamiento("LaPampa",5,true,700);
+       /* Alojamiento alojamiento1 = new Alojamiento("LaPampa",5,true,700);
         Traslado traslado1 = new Traslado ("Auto",4,300);
         Paquete paquete1 = new Paquete (alojamiento1,traslado1,"hermoso");
         
         System.out.println("Disponibilidad "+paquete1.cupo());
-        System.out.println("camas" +alojamiento1.getCantidadDeCamas());
+        System.out.println("camas" +alojamiento1.getCantidadDeCamas());*/
+       
+       Inicio PantallaDeInicio = new Inicio();
+       PantallaDeInicio.setVisible(true);
     }
     
 }

@@ -35,7 +35,7 @@ public class TrasladoData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, traslado.getTipo());
             ps.setInt(2, traslado.getCantidadDePasajeros());
-            ps.setDouble (4, traslado.getCostoPorKm());
+            ps.setDouble (3, traslado.getCostoPorKm());
             
             int filas = ps.executeUpdate();
             
@@ -56,7 +56,7 @@ public class TrasladoData {
 
     public void borrarTraslado(int id_traslado) {    
         try {
-            String sql = "DELETE FROM traslado WHERE id_traslado ?;";
+            String sql = "DELETE FROM traslado WHERE id_traslado=?;";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,id_traslado);
             ps.executeUpdate();
@@ -67,7 +67,7 @@ public class TrasladoData {
     }
 public void actualizarTraslado(Traslado traslado) { 
         try {
-            String sql = "UPDATE traslado SET tipo=?, cantidad_max_de_pasajeros=?,costo_por_km=?, WHERE id_traslado=?;";
+            String sql = "UPDATE traslado SET tipo=?, cantidad_max_de_pasajeros=?,costo_por_km=? WHERE id_traslado=?;";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, traslado.getTipo());
             ps.setInt(2, traslado.getCantidadDePasajeros());

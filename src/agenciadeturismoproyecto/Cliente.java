@@ -12,13 +12,19 @@ package agenciadeturismoproyecto;
 public class Cliente {
     private String nombreCompleto;
     private int dni;
-    private int telefono;
+    private String telefono;
     private int id_cliente;
 
-    public Cliente(String nombreCompleto, int dni, int telefono) {
+    public Cliente(String nombreCompleto, int dni, String telefono) {
         this.nombreCompleto = nombreCompleto;
         this.dni = dni;
         this.telefono = telefono;
+    }
+     public Cliente(int id_cliente, String nombreCompleto, int dni, String telefono) {
+        this.nombreCompleto = nombreCompleto;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.id_cliente = id_cliente;
     }
 public Cliente() {
         this.nombreCompleto = nombreCompleto;
@@ -50,11 +56,11 @@ public Cliente() {
         this.dni = dni;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
     

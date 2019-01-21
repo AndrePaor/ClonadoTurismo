@@ -20,6 +20,18 @@ public class Traslado {
         this.cantidadDePasajeros = cantidadDePasajeros;
         this.costoPorKm = costoPorKm;
     }
+     public Traslado(int id_traslado, String tipo, int cantidadDePasajeros, double costoPorKm) {
+        this.tipo = tipo;
+        this.cantidadDePasajeros = cantidadDePasajeros;
+        this.costoPorKm = costoPorKm;
+        this.id_traslado = id_traslado;
+    }
+      public Traslado(int id_traslado) {
+        this.tipo = tipo;
+        this.cantidadDePasajeros = cantidadDePasajeros;
+        this.costoPorKm = costoPorKm;
+        this.id_traslado = id_traslado;
+    }
 public Traslado() {
         this.tipo = tipo;
         this.cantidadDePasajeros = cantidadDePasajeros;

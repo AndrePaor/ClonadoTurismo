@@ -8,6 +8,7 @@ package Interface;
 import AccesoBaseDeDatos.AlojamientoData;
 import agenciadeturismoproyecto.Alojamiento;
 import agenciadeturismoproyecto.Conectar;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -52,6 +53,7 @@ private AlojamientoData alojamientoData;
         jBlimpiar = new javax.swing.JButton();
         jBsalir = new javax.swing.JButton();
         jBbuscar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +121,9 @@ private AlojamientoData alojamientoData;
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel6.setText("ALOJAMIENTO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,12 +166,18 @@ private AlojamientoData alojamientoData;
                     .addGroup(layout.createSequentialGroup()
                         .addGap(93, 93, 93)
                         .addComponent(jBsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +227,10 @@ alojamiento.setCantidadDeCamas( Integer.parseInt(tfcamas.getText()));
 alojamiento.setFumadores(cbfumadores.isSelected());
 alojamiento.setCostoPorNoche(Double.parseDouble(tfcosto.getText()));
 
+
 alojamientoData.guardarAlojamiento(alojamiento);
+tfId.setText(Integer.toString(alojamiento.getId_alojamiento()));
+
 
 // TODO add your handling code here:
         
@@ -230,7 +244,22 @@ int id_alojamiento= Integer.parseInt(tfId.getText());
     }//GEN-LAST:event_jBeliminarActionPerformed
 
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
-        int id_alojamiento= Integer.parseInt(tfId.getText());
+        
+        int id_alojamiento= 0;
+             
+        if (isNumeric(tfId.getText())){
+             if ( (tfId.getText().length()>0) )  {
+             
+                 id_alojamiento= Integer.parseInt(tfId.getText());
+             }
+            else{
+             JOptionPane.showMessageDialog(null,"El campo codigo de la persona no puede ser vacio","Advertencia",JOptionPane.WARNING_MESSAGE);                       
+             }
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"El campo codigo debe ser un numero","Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
+        
         
         Alojamiento alojamiento =alojamientoData.buscarAlojamiento(id_alojamiento);
         tfId.setText(alojamiento.getId_alojamiento()+"");
@@ -240,6 +269,15 @@ int id_alojamiento= Integer.parseInt(tfId.getText());
         tfcosto.setText(Double.toString(alojamiento.getCostoPorNoche()) );
     }//GEN-LAST:event_jBbuscarActionPerformed
 
+    public static boolean isNumeric(String strNum) {
+    try {
+        double d = Double.parseDouble(strNum);
+    } catch (NumberFormatException | NullPointerException nfe) {
+        return false;
+    }
+    return true;
+}
+    
     private void jBlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBlimpiarActionPerformed
        tfId.setText("");
        tfdireccion.setText("");
@@ -319,6 +357,7 @@ this.dispose();
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfcamas;
     private javax.swing.JTextField tfcosto;

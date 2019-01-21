@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,11 +33,11 @@ public class ClienteData {
     public void guardarCliente(Cliente cliente) {
     
         try {
-            String sql = "INSERT INTO Cliente (Nombre_comleto,DNI,Telfono) VALUES ( ?, ?, ?);";
+            String sql = "INSERT INTO Cliente (Nombre_completo,DNI,Telefono) VALUES ( ?, ?, ?);";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cliente.getNombreCompleto());
             ps.setInt(2, cliente.getDni());
-            ps.setDouble (4, cliente.getTelefono());
+            ps.setString (3, cliente.getTelefono());
             
             int filas = ps.executeUpdate();
             
@@ -46,13 +48,39 @@ public class ClienteData {
             
             }
             else {
-            System.out.println("No se pudo obtener el id de traslado");}
+            System.out.println("No se pudo obtener el id de cliente");}
             
             ps.close();
             
         } catch (SQLException ex) {
-            Logger.getLogger(TrasladoData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
         }}
+    public List<Cliente> obtenerClientes(){
+        List<Cliente> clientes = new ArrayList<Cliente>();
+            
+
+        try {
+            String sql = "SELECT * FROM cliente;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet=ps.executeQuery();
+            Cliente cliente;
+            while(resultSet.next()){
+                cliente = new Cliente();
+                cliente.setId_cliente(resultSet.getInt("id_cliente"));
+                cliente.setNombreCompleto(resultSet.getString("nombre_completo"));
+                cliente.setDni(resultSet.getInt("DNI"));
+                cliente.setTelefono(resultSet.getString("telefono"));
+
+                clientes.add(cliente);
+            }      
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los clientes: " + ex.getMessage());
+        }
+        
+        
+        return clientes;
+    }
 
     public void borrarCliente(int id_cliente) {    
         try {
@@ -65,13 +93,13 @@ public class ClienteData {
             Logger.getLogger(ClienteData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-public void actualizarTraslado(Cliente cliente) { 
+public void actualizarCliente(Cliente cliente) { 
         try {
             String sql = "UPDATE cliente SET Nombre_completo=?, DNI=?,Telefono=? WHERE id_cliente=?;";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cliente.getNombreCompleto());
             ps.setInt(2, cliente.getDni());
-            ps.setInt(3, cliente.getTelefono());
+            ps.setString(3, cliente.getTelefono());
             ps.setInt(4,cliente.getId_cliente());
             ps.executeUpdate();
             ps.close();
@@ -95,7 +123,7 @@ public void actualizarTraslado(Cliente cliente) {
                 cliente.setId_cliente(resultSet.getInt("id_cliente"));
                 cliente.setNombreCompleto(resultSet.getString("nombre_completo"));
                 cliente.setDni(resultSet.getInt("DNI"));
-                cliente.setTelefono(resultSet.getInt("telefono"));
+                cliente.setTelefono(resultSet.getString("telefono"));
                 
             }
             ps.close();
@@ -107,4 +135,6 @@ public void actualizarTraslado(Cliente cliente) {
         
         
     }
+      
+      
 }

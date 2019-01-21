@@ -5,6 +5,7 @@
  */
 package AccesoBaseDeDatos;
 
+import agenciadeturismoproyecto.Cliente;
 import agenciadeturismoproyecto.Compra;
 import agenciadeturismoproyecto.Conectar;
 import java.sql.Connection;
@@ -13,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -118,6 +121,65 @@ public void actualizarCompra(Compra compra){
         
         
         
+    }
+      
+      
+    public List<Compra> obtenerCompras(){
+        List<Compra> compras = new ArrayList<Compra>();
+            
+
+        try {
+            String sql = "SELECT * FROM compra;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet=ps.executeQuery();
+            Compra compra;
+            while(resultSet.next()){
+                compra = new Compra();
+                compra.setId_compra(resultSet.getInt("id_compra"));
+                compra.getPaquete().setId_paquete(resultSet.getInt("id_paquete"));
+                compra.setFechaIngreso(resultSet.getDate("Fecha_de_ingreso").toLocalDate());
+                compra.setFechaEgreso(resultSet.getDate("Fecha_de_egreso").toLocalDate());
+                compra.getCliente().setId_cliente(resultSet.getInt("id_cliente"));
+                compra.setCantidadDePasajeros(resultSet.getInt("cantidad_de_pasajeros"));
+
+                compras.add(compra);
+            }      
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener las compras: " + ex.getMessage());
+        }
+        
+        
+        return compras;
+    }
+
+    public List<Cliente> obtenerClientesActivos(){
+    List<Cliente> clientes = new ArrayList<Cliente>();
+            
+
+        try {
+            String sql = "SELECT id_cliente, nombre_completo FROM compra, cliente WHERE compra.id_cliente = cliente.id_cliente;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet resultSet = ps.executeQuery();
+            Cliente cliente;
+            while(resultSet.next()){
+                cliente = new Cliente();
+                cliente.setId_cliente(resultSet.getInt("id_cliente"));
+                cliente.setNombreCompleto(resultSet.getString("nombre_completo"));
+                cliente.setDni(resultSet.getInt("DNI"));
+                cliente.setTelefono(resultSet.getString("telefono"));
+
+                clientes.add(cliente);
+            }      
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los clientes: " + ex.getMessage());
+        }
+        
+        
+        return clientes;
+      
     }
 
 

@@ -30,6 +30,13 @@ public class Alojamiento {
         this.costoPorNoche = costoPorNoche;
         this.id_alojamiento = id_alojamiento;
     }
+     public Alojamiento( int id_alojamiento) {
+        this.direccion = direccion;
+        this.cantidadDeCamas = cantidadDeCamas;
+        this.fumadores = fumadores;
+        this.costoPorNoche = costoPorNoche;
+        this.id_alojamiento = id_alojamiento;
+    }
 public Alojamiento() {
         this.direccion = direccion;
         this.cantidadDeCamas = cantidadDeCamas;
