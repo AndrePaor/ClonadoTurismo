@@ -6,8 +6,10 @@
 package Interface;
 
 
+import AccesoBaseDeDatos.Tipo_trasladoData;
 import AccesoBaseDeDatos.TrasladoData;
 import agenciadeturismoproyecto.Conectar;
+import agenciadeturismoproyecto.Tipo_traslado;
 import agenciadeturismoproyecto.Traslado;
 /**
  *
@@ -16,6 +18,7 @@ import agenciadeturismoproyecto.Traslado;
 public class FormularioTraslado extends javax.swing.JInternalFrame {
     
 private TrasladoData trasladoData;
+private Tipo_trasladoData tipo_trasladoData; 
 private Conectar con;
 
     /**
@@ -24,8 +27,9 @@ private Conectar con;
     public FormularioTraslado() {
         initComponents();
        
-                con=new Conectar();
+        con=new Conectar();
         trasladoData = new TrasladoData(con);
+        tipo_trasladoData = new Tipo_trasladoData(con);
     }
 
     /**
@@ -236,7 +240,7 @@ private Conectar con;
 int id_traslado= Integer.parseInt(tfId.getText());
         trasladoData.borrarTraslado(id_traslado);        // TODO add your handling code here:
     }//GEN-LAST:event_jBeliminarActionPerformed
-private String tipo(){
+/*private String tipo(){
         String tipo;
     if (jRauto.isSelected())
     {return tipo = "Auto";}
@@ -246,12 +250,37 @@ private String tipo(){
        {return tipo ="Minibus";}
         return null;
        
-}
-       
+} */
+
+    private int VistatipoTrasporte(){
+        
+        int Tipo=0;
+        if (jRauto.isSelected()){
+        Tipo = 1;
+        
+        }
+        else{
+           if (jRvan.isSelected()){
+           Tipo = 3;
+           }
+           else{
+            Tipo = 2;
+           }
+            }
+        
+        return Tipo;
+        
+    }
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+ 
+Tipo_traslado tipo_traslado = new Tipo_traslado();
 Traslado traslado = new Traslado();
-traslado.setTipo(tipo());
+
+tipo_traslado = tipo_trasladoData.buscarTipo_traslado(VistatipoTrasporte());
+ 
+
+traslado.setMiTipo_traslado(tipo_traslado);
 traslado.setCantidadDePasajeros(Integer.parseInt(tfcantidad.getText()));
 traslado.setCostoPorKm(Double.parseDouble(tfcosto.getText()));
 trasladoData.guardarTraslado(traslado);
@@ -261,11 +290,11 @@ tfId.setText(Integer.toString(traslado.getId_traslado()));        // TODO add yo
     
     
     private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
- int id_traslado= Integer.parseInt(tfId.getText());
+    int id_traslado= Integer.parseInt(tfId.getText());
         
         Traslado traslado =trasladoData.buscarTraslado(id_traslado);
         tfId.setText(traslado.getId_traslado()+"");
-        tftipo.setText(traslado.getTipo());
+        tftipo.setText(traslado.getMiTipo_traslado().getNombre());
         tfcantidad.setText(Integer.toString(traslado.getCantidadDePasajeros()));
         tfcosto.setText(Double.toString(traslado.getCostoPorKm()) );        // TODO add your handling code here:
     }//GEN-LAST:event_jBbuscarActionPerformed
@@ -288,7 +317,9 @@ this.dispose();        // TODO add your handling code here:
     private void jBmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmodificarActionPerformed
 if ((tfId.getText())!=null){
             
-            String tipo= tipo();
+            Tipo_traslado tipo = new Tipo_traslado();
+             
+            tipo = tipo_trasladoData.buscarTipo_traslado(VistatipoTrasporte()); 
             int cantidadDePasajeros = Integer.parseInt(tfcantidad.getText());
             
             double costoPorKm= Double.parseDouble(tfcosto.getText());
