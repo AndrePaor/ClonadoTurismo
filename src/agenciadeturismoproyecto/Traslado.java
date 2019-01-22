@@ -10,30 +10,31 @@ package agenciadeturismoproyecto;
  * @author G5
  */
 public class Traslado {
-   private String tipo;
+     
+    private Tipo_traslado MiTipo_traslado;
     private int cantidadDePasajeros;
     private double costoPorKm;
     private int id_traslado;
-
-    public Traslado(String tipo, int cantidadDePasajeros, double costoPorKm) {
-        this.tipo = tipo;
+   
+    public Traslado(Tipo_traslado MiTipo_traslado, int cantidadDePasajeros, double costoPorKm) {
+        this.MiTipo_traslado = MiTipo_traslado;
         this.cantidadDePasajeros = cantidadDePasajeros;
         this.costoPorKm = costoPorKm;
     }
-     public Traslado(int id_traslado, String tipo, int cantidadDePasajeros, double costoPorKm) {
-        this.tipo = tipo;
+     public Traslado(int id_traslado, Tipo_traslado MiTipo_traslado, int cantidadDePasajeros, double costoPorKm) {
+        this.MiTipo_traslado = MiTipo_traslado;
         this.cantidadDePasajeros = cantidadDePasajeros;
         this.costoPorKm = costoPorKm;
         this.id_traslado = id_traslado;
     }
       public Traslado(int id_traslado) {
-        this.tipo = tipo;
+        this.MiTipo_traslado = MiTipo_traslado;  
         this.cantidadDePasajeros = cantidadDePasajeros;
         this.costoPorKm = costoPorKm;
         this.id_traslado = id_traslado;
     }
 public Traslado() {
-        this.tipo = tipo;
+        this.MiTipo_traslado = MiTipo_traslado;
         this.cantidadDePasajeros = cantidadDePasajeros;
         this.costoPorKm = costoPorKm;
     }
@@ -45,13 +46,7 @@ public Traslado() {
         this.id_traslado = id_traslado;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+   
 
     public int getCantidadDePasajeros() {
         return cantidadDePasajeros;
@@ -67,6 +62,14 @@ public Traslado() {
 
     public void setCostoPorKm(double costoPorKm) {
         this.costoPorKm = costoPorKm;
+    }
+
+    public Tipo_traslado getMiTipo_traslado() {
+        return MiTipo_traslado;
+    }
+
+    public void setMiTipo_traslado(Tipo_traslado MiTipo_traslado) {
+        this.MiTipo_traslado = MiTipo_traslado;
     }
 
     
