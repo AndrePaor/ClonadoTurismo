@@ -5,8 +5,10 @@
  */
 package AccesoBaseDeDatos;
 
+import agenciadeturismoproyecto.Alojamiento;
 import agenciadeturismoproyecto.Conectar;
 import agenciadeturismoproyecto.Paquete;
+import agenciadeturismoproyecto.Traslado;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -142,6 +144,42 @@ public void actualizarpaquete(Paquete paquete){
         
         return paquetes;
     }
+       
+        public List<Paquete> obtenerPaquetesXtipoXfumadores(boolean aceptaFumadores, Integer CodigoTipoVehiculo){
+        List<Paquete> paquetes = new ArrayList<Paquete>();
+            
+
+        try {
+            String sql = ("SELECT * from paquete pa INNER JOIN traslado tr on pa.id_traslado = tr.id_traslado INNER JOIN alojamiento al on al.id_alojamiento = pa.id_alojamiento WHERE al.Fumadores  = " + aceptaFumadores +" and tr.tipo_trasladoId = '"+CodigoTipoVehiculo+"';");
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet resultSet=ps.executeQuery();
+            Paquete paquete;
+            Traslado traslado;
+            Alojamiento alojamiento;
+            
+            while(resultSet.next()){
+                paquete= new Paquete();
+                traslado= new Traslado();
+                alojamiento= new Alojamiento();
+                
+                traslado.setId_traslado(resultSet.getInt("id_traslado"));
+                alojamiento.setId_alojamiento(resultSet.getInt("id_alojamiento"));
+                paquete.setId_paquete(resultSet.getInt("id_paquete"));
+                paquete.setTraslado(traslado);
+                paquete.setAlojamiento(alojamiento);
+                paquete.setDescripcion(resultSet.getString("Descripcion"));
+                paquete.setKM_Viaje(resultSet.getInt("KM_Viaje"));
+                paquetes.add(paquete);
+            }      
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los paquetes: " + ex.getMessage());
+        }
+        
+        
+        return paquetes;
+    }
+        
        public List<Paquete> filtroVehiculos(String tipo){
         List<Paquete> paquetes = new ArrayList<Paquete>();
             

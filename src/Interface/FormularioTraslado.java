@@ -262,10 +262,10 @@ int id_traslado= Integer.parseInt(tfId.getText());
         else{
            if (jRvan.isSelected()){
            Tipo = 3;
-           }
-           else{
+             }
+        else{
             Tipo = 2;
-           }
+            }
             }
         
         return Tipo;

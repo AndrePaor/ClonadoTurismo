@@ -15,7 +15,7 @@ public class Paquete {
     private String descripcion;
     private int id_paquete;
     private int cupo;
-
+    private int KM_Viaje ;
     
     public Paquete() {
         this.alojamiento = alojamiento;
@@ -67,6 +67,14 @@ public class Paquete {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public int getKM_Viaje() {
+        return KM_Viaje;
+    }
+
+    public void setKM_Viaje(int KM_Viaje) {
+        this.KM_Viaje = KM_Viaje;
     }
       
      

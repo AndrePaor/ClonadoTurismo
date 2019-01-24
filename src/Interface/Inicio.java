@@ -44,6 +44,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         miListado = new javax.swing.JMenuItem();
+        JmiReportePaquetes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,6 +151,14 @@ public class Inicio extends javax.swing.JFrame {
         });
         jMenu6.add(miListado);
 
+        JmiReportePaquetes.setText("Reporte de paquetes");
+        JmiReportePaquetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmiReportePaquetesActionPerformed(evt);
+            }
+        });
+        jMenu6.add(JmiReportePaquetes);
+
         jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
@@ -222,6 +231,15 @@ escritorio.moveToFront(aw);
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void JmiReportePaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmiReportePaquetesActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+         FormularioReportePaquetes aw= new  FormularioReportePaquetes();
+        aw.setVisible(true);
+        escritorio.add(aw);
+        escritorio.moveToFront(aw);
+    }//GEN-LAST:event_JmiReportePaquetesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,6 +276,7 @@ escritorio.moveToFront(aw);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem JmiReportePaquetes;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JMenu jMenu1;
